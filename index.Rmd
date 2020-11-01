@@ -1,0 +1,65 @@
+---
+title: "Estimating Pi by Monte Carlo Method"
+author: "patmau"
+date: "Nov 1, 2020"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## The Number $\pi$
+
+The number $\pi$ is a mathematical constant and is defined as the ratio of a circle's circumference to its diameter.
+
+It is an irrational number, i.e., $\pi$ cannot be represented as a common fraction.
+
+See [Wikipedia](https://en.wikipedia.org/wiki/Pi) for a lot of information about this fascinating number.
+
+### Methods for estimating $\pi$
+
+- [Geometrical approach using polygons](https://en.wikipedia.org/wiki/Pi#Polygon_approximation_era), pioneered by Archimedes
+
+- Infinite series
+
+- Monte Carlo methods
+
+## Graphical Representation
+
+Draw a circle inscribed in a square, then place random dots inside the square.
+
+```{r plot, echo=FALSE, fig.width=4, fig.height=3, fig.align='center'}
+library(plotrix)
+
+x <- runif(1000, -1, 1)
+y <- runif(1000, -1 ,1)
+
+plot(x, y, 
+     asp = 1, 
+     xlim = c(-1, 1), 
+     ylim = c(-1, 1),
+     xlab = "x", ylab  = "y",
+     col = "darkgrey", pch = 4)
+rect(-1, -1, 1, 1, border = "red", lwd = 3)
+draw.circle(0, 0, 1, border = "blue", lwd = 3)
+```
+
+Assuming a circle with radius $r = 1$, the circle's area is $\pi * r^2 = \pi$, and the square's area is $(2*r)^2 = 4$.
+Thus, the ratio of points within the circle to the total number of points estimates the number $\pi / 4$.
+
+## Better estimate with more points?
+
+```{r series, echo = TRUE}
+set.seed(999)
+
+exponents <- 2:6
+pi <- sapply(exponents, function(n) {
+    x <- runif(10^n, -1, 1)
+    y <- runif(10^n, -1, 1)
+    4 * mean(x^2 + y^2 <= 1)
+})
+cbind(n = 10^exponents, pi)
+```
+
+

@@ -9,26 +9,30 @@
 
 library(shiny)
 library(plotrix)
+library(graphics)
 
 
 set.seed(2020)
 radius <- 1
 
-# Define server logic required to draw a histogram
+# Define server logic 
 shinyServer(function(input, output) {
     
     # generate coordinates
     coord <- reactive({
-        n <- input$throws
+        n <- input$ndraw
         list(x = runif(n, -radius, radius), y = runif(n, -radius, radius))
     })
     
-    output$distPlot <- renderPlot({
+    # generate plot
+    output$piPlot <- renderPlot({
         plot(coord()$x, coord()$y, 
              asp = 1, 
              xlim = c(-radius, radius), 
              ylim = c(-radius, radius),
-             pch = 4)
+             xlab = "x", ylab  = "y",
+             col = "darkgrey", pch = 4)
+        rect(-1, -1, 1, 1, border = "red", lwd = 3)
         draw.circle(0, 0, radius, border = "blue", lwd = 3)
     })
     

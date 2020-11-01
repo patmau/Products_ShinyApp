@@ -10,25 +10,26 @@
 library(shiny)
 
 
-titleString <- "Estimating \u03C0 by Monte Carlo Method"
-
-# Define UI for application that draws a histogram
+# Define UI 
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel(titleString),
+    titlePanel("Estimating \u03C0 by Monte Carlo Method"),
 
-    # Sidebar with a slider input for number of bins
+    # Sidebar with a slider input for number of throws
     sidebarLayout(
         sidebarPanel(
-            sliderInput("throws",
-                        "Number of throws:",
+            h4("Use the slider to select the number of draws, then press Go!"),
+            h5("Note: you may have to update the number of draws to make the Go! button work"),
+            sliderInput("ndraw",
+                        "Number of draws:",
                         min = 10,
                         max = 10000,
-                        value = 1000)
+                        value = 1000),
+            submitButton("Go!")
         ),
 
-        # Show a plot of the generated distribution
+        # Plot
         mainPanel(
             plotOutput("distPlot"),
             h3("Monte Carlo Estimate of \u03C0:"),
