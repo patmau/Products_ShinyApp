@@ -31,7 +31,8 @@ shinyUI(fluidPage(
 
         # Plot
         mainPanel(
-            plotOutput("distPlot"),
+            h3("The ratio of the number of points inside the circle to the total number of points estimates the number \u03C0 / 4 "),
+            plotOutput("piPlot"),
             h3("Monte Carlo Estimate of \u03C0:"),
             textOutput("piEstimate"),
             h3("True Value: "),

@@ -1,5 +1,5 @@
 ---
-title: "Estimating Pi by Monte Carlo Method"
+title: "Estimating the number Pi by Monte Carlo Method"
 author: "patmau"
 date: "Nov 1, 2020"
 output: slidy_presentation
@@ -25,15 +25,15 @@ See [Wikipedia](https://en.wikipedia.org/wiki/Pi) for a lot of information about
 
 - Monte Carlo methods
 
-## Graphical Representation
+## Monte Carlo method
 
 Draw a circle inscribed in a square, then place random dots inside the square.
 
-```{r plot, echo=FALSE, fig.width=4, fig.height=3, fig.align='center'}
+```{r plot, echo=FALSE, fig.height=4, fig.align='center'}
 library(plotrix)
 
-x <- runif(1000, -1, 1)
-y <- runif(1000, -1 ,1)
+x <- runif(500, -1, 1)
+y <- runif(500, -1 ,1)
 
 plot(x, y, 
      asp = 1, 
@@ -46,9 +46,12 @@ draw.circle(0, 0, 1, border = "blue", lwd = 3)
 ```
 
 Assuming a circle with radius $r = 1$, the circle's area is $\pi * r^2 = \pi$, and the square's area is $(2*r)^2 = 4$.
+
 Thus, the ratio of points within the circle to the total number of points estimates the number $\pi / 4$.
 
 ## Better estimate with more points?
+
+The code below estimates $\pi$ for an increasing number of random dots.
 
 ```{r series, echo = TRUE}
 set.seed(999)
@@ -62,4 +65,6 @@ pi <- sapply(exponents, function(n) {
 cbind(n = 10^exponents, pi)
 ```
 
+## Web application
 
+[Here](https://patmau.shinyapps.io/EstimatingPi) is a shiny app where you can estimate $\pi$ for any number of dots between 10 and 10000 (upper limit of 10000 for performance reasons).
